@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package streaming.spring;
+package reservation.spring;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -28,8 +28,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 //@SpringBootApplication
 //@EnableAutoConfiguration
-@ComponentScan(basePackages = "streaming") 
-@EnableJpaRepositories(basePackages = "streaming")
+@ComponentScan(basePackages = "reservation") 
+@EnableJpaRepositories(basePackages = "reservation")
 @EnableWebMvc
 public class SpringConfig extends WebMvcConfigurerAdapter{
 
@@ -47,7 +47,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
     public InternalResourceViewResolver jspViewResolver() {
         InternalResourceViewResolver bean = new InternalResourceViewResolver();
         bean.setPrefix("/WEB-INF/views/");
-        bean.setSuffix(".jsp");
+//        bean.setSuffix(".jsp");
         return bean;
     }
  /*
