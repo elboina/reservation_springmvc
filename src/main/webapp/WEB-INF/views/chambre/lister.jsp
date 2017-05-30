@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,10 @@
     </head>
     <body>
         <c:import url="../_MENU.jsp"></c:import>
+        
         <h1>Liste des chambres</h1>
+        
+        <a href="<spring:url value='/chambre/ajouter'></spring:url>">Nouvelle Chambre</a>
         <table>
             <thead>
                 <tr>
@@ -27,6 +31,10 @@
                     <th>
                        Prix
                     </th>
+                    <th>
+                       Hotel
+                    </th>
+                    <th>Action</th>
                 </tr>
             </thead>
             
@@ -36,6 +44,8 @@
                         <td>${ch.id}</td>
                         <td>${ch.nom}</td>
                         <td>${ch.prix}</td>
+                        <td>${ch.hotel.nom}</td>
+                        <td><a href="<spring:url value='/chambre/modifier/${ch.id}'></spring:url>">Modifier</a></td>
                     </tr>
                     
                 </c:forEach>
