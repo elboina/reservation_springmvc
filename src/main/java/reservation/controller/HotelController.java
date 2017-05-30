@@ -18,12 +18,13 @@ import reservation.service.HotelService;
  * @author formation
  */
 @Controller
+@RequestMapping(value = "/hotel", method = RequestMethod.GET)
 public class HotelController {
 
     @Autowired
     private HotelService hs;
     
-    @RequestMapping(value = "hotel/supprimer/{idHotel}", method = RequestMethod.GET)
+    @RequestMapping(value = "/supprimer/{idHotel}", method = RequestMethod.GET)
     public String supprimer( @PathVariable(value = "idHotel") long id){
         //Supprimer en DB
         hs.delete(id);
@@ -32,7 +33,7 @@ public class HotelController {
     } 
             
 
-    @RequestMapping(value = "/hotel/lister", method = RequestMethod.GET)
+    @RequestMapping(value = "/lister", method = RequestMethod.GET)
     public String listerHotels(Model model) {
 
         model.addAttribute("hotels", hs.findAll());
