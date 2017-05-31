@@ -55,6 +55,14 @@ public class Reservation implements Serializable {
     @Enumerated(EnumType.STRING)
     private EtatReservation etatReservation;
 
+    public EtatReservation getEtatReservation() {
+        return etatReservation;
+    }
+
+    public void setEtatReservation(EtatReservation etatReservation) {
+        this.etatReservation = etatReservation;
+    }
+
     public List<Chambre> getChambres() {
         return chambres;
     }

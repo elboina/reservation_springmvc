@@ -64,4 +64,10 @@ public class ChambreController {
         chs.save(c);
         return "redirect:/chambre/lister";
     }
+    
+    @RequestMapping(value = "/chambre/supprimer/{id}", method = RequestMethod.GET)
+    public String supprimer(@PathVariable("id") long idChambre) {
+        chs.delete(idChambre);
+        return "redirect:/chambre/lister";
+    }
 }

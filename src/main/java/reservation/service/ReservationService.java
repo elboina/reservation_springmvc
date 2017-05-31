@@ -5,7 +5,8 @@
  */
 package reservation.service;
 
-import java.io.Serializable;
+import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import reservation.entity.Reservation;
 

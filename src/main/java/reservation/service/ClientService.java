@@ -5,7 +5,8 @@
  */
 package reservation.service;
 
-import java.io.Serializable;
+import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import reservation.entity.Client;
 
@@ -14,5 +15,6 @@ import reservation.entity.Client;
  * @author formation
  */
 public interface ClientService extends CrudRepository<Client, Long>{
-    
+    @Query("SELECT c FROM Client c ORDER BY c.prenom, c.nom")
+    public List<Client> findWithNomAndPrenom();
 }

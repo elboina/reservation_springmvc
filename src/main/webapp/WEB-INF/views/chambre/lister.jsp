@@ -17,7 +17,8 @@
         <c:import url="../_MENU.jsp"></c:import>
         
         <h1>Liste des chambres</h1>
-        
+        <c:choose>
+            <c:when test="${adminConnecte}">
         <a href="<spring:url value='/chambre/ajouter'></spring:url>">Nouvelle Chambre</a>
         <table>
             <thead>
@@ -35,6 +36,7 @@
                        Hotel
                     </th>
                     <th>Action</th>
+                    <th>Action 2</th>
                 </tr>
             </thead>
             
@@ -46,10 +48,13 @@
                         <td>${ch.prix}</td>
                         <td>${ch.hotel.nom}</td>
                         <td><a href="<spring:url value='/chambre/modifier/${ch.id}'></spring:url>">Modifier</a></td>
+                        <td><a href="<spring:url value="/chambre/supprimer/${ch.id}" />">Supprimer</a></td>
                     </tr>
                     
                 </c:forEach>
             </tbody>
         </table>
+            </c:when>
+        </c:choose>
     </body>
 </html>

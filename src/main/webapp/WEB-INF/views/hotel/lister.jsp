@@ -17,7 +17,8 @@
         <header>
             <c:import url="../_MENU.jsp"></c:import>
             </header>
-                <button><a href="<spring:url value="/hotel/ajouter"></spring:url>">Nouvel hôtel</a></button>
+            <c:choose>
+                <c:when test="${adminConnecte}">  <button><a href="<spring:url value="/hotel/ajouter"></spring:url>">Nouvel hôtel</a></button>
             <h1>Hotels</h1>
 
 
@@ -52,7 +53,9 @@
                     </tr>
                 </c:forEach>
             </tbody>
-        </table>
+        </table></c:when>
+            </c:choose>
+              
         <c:import url="../_PIED.jsp"></c:import>
     </body>
 </html>
