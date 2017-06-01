@@ -28,6 +28,7 @@
                         <th>Prix Total</th>
                         <th>Date de réservation</th>
                         <th>Etat de la réservation</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +38,7 @@
                         <td>${res.prixTotal}</td>
                         <td>${res.dateReservation}</td>
                         <td>${res.etatReservation}</td>
+                        <td><a href="<spring:url value="/reservations/supprimer/${res.id}"/>">Supprimer</a></td>
                     </tr>
                     </c:forEach>
                                

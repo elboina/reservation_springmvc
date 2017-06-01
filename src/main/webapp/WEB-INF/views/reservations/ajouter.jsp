@@ -22,13 +22,18 @@
     <c:set var="cheminModif">
         <spring:url value="/reservations/ajouter" />
     </c:set>
+    
+    
         
-    <form:form modelAttribute="reservation" action="${cheminModif}">
+    <form:form modelAttribute="dto" action="${cheminModif}">
         <label>Client : </label><form:select path="client.id" items="${clients}" itemLabel="prenom" itemValue="id" /><br>
         <label>Date : </label><form:input path="dateReservation" /><br>
         <label>Prix total : </label><form:input path="prixTotal" /><br>
         <label>Etat : </label><form:input path="etatReservation" /><br>
-        <!--<label>Chambres : </label><form:select path="chambres" items="${chambres}" itemLabel="nom" itemValue="id" multiple="true"/><br>-->
+        
+        <label>Chambres : </label><form:checkboxes path="chambresId" items="${chambres}" itemLabel="nom" itemValue="id"/><br>
+        
+        
         <input type="submit" value="Enregistrer" />
         
     </form:form>

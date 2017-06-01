@@ -5,12 +5,17 @@
  */
 package reservation.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import reservation.dto.ReservationDTO;
+import reservation.entity.Chambre;
 import reservation.entity.Reservation;
 import reservation.service.ChambreService;
 import reservation.service.ClientService;
@@ -38,17 +43,39 @@ public class ReservationController {
     
     @RequestMapping(value = "/ajouter", method = RequestMethod.GET)
     public String ajouterGET(Model model) {
-        model.addAttribute("reservation", new Reservation());
+        List<Integer> index = new ArrayList<>();
+        List<Chambre> ch = (List<Chambre>)chs.findAll();
+        for(int i=0; i < ch.size(); i++) 
+            index.add(i);
+        
+        model.addAttribute("dto", new ReservationDTO());
         model.addAttribute("clients",cls.findWithNomAndPrenom());
-        model.addAttribute("chambres", chs.findAll());
+        model.addAttribute("chambres", ch);
+        model.addAttribute("index", index);
         
         return "/reservations/ajouter.jsp";
     }
     
     @RequestMapping(value = "/ajouter", method = RequestMethod.POST)
-    public String ajouterPOST(@ModelAttribute("reservation") Reservation res) {
-        
+    public String ajouterPOST(@ModelAttribute("dto") ReservationDTO dto) {
+        Reservation res = new Reservation();
+        for(Long id:dto.getChambresId()) {
+            res.getChambres().add(chs.findOne(id));
+        }
+        res.setClient(dto.getClient());
+        res.setDateReservation(dto.getDateReservation());
+        res.setPrixTotal(dto.getPrixTotal());
+        res.setId(dto.getId());
+        res.setEtatReservation(reservation.entity.Reservation.EtatReservation.valueOf(dto.getEtatReservation().toString()));
         rs.save(res);
+        
         return "redirect:/reservations/lister";
     }
+    
+   @RequestMapping(value ="/supprimer/{id}", method = RequestMethod.GET)
+   public String supprimer(@PathVariable("id") long id) {
+       rs.delete(id);
+       return "redirect:/reservations/lister";
+   }
+   
 }
