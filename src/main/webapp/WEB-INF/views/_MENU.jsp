@@ -10,10 +10,11 @@
 <!DOCTYPE html>
 <nav>
     <c:choose>
-        <c:when test="${!adminConnecte}">
+        <c:when test="${!utilConnecte}">
             <a href="<spring:url value="/identification" />">Identification</a>
+            <a href="<spring:url value="/inscription" />">Inscription</a>
         </c:when>
-        <c:otherwise>
+        <c:when test="${adminConnecte}">
             <ul>
                 <li>
                     <a href="<spring:url value="/hotel/lister"></spring:url>">Hotels</a>
@@ -28,6 +29,11 @@
                 <li>
                     <a href="<spring:url value="/reservations/lister" />">Reservations</a>
                 </li>
+                <li><a href="<spring:url value="/deconnexion" />">Déconnexion</a></li>
+            </ul>
+        </c:when>
+        <c:otherwise>
+            <ul>
                 <li><a href="<spring:url value="/deconnexion" />">Déconnexion</a></li>
             </ul>
         </c:otherwise>

@@ -5,14 +5,14 @@
  */
 package reservation.service;
 
-import java.util.List;
 import org.springframework.data.repository.CrudRepository;
-import reservation.entity.Chambre;
+import reservation.entity.Utilisateur;
 
 /**
  *
  * @author formation
  */
-public interface ChambreService extends CrudRepository<Chambre, Long> {
-    public List<Chambre> findByHotelNomAndHotelLocaliteAndReservationsPrixTotal(String nom,String localite, double prix);
+public interface UtilisateurServiceCRUD extends CrudRepository<Utilisateur, Long>{
+    public Utilisateur findByIdentifiantAndMotDePasse(String identifiant, String motDePasse);
+    
 }

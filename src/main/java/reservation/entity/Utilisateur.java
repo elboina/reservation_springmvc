@@ -6,7 +6,10 @@
 package reservation.entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,10 +21,54 @@ import javax.persistence.Id;
 @Entity
 public class Utilisateur implements Serializable {
 
+    public enum TypeUtilisateur {
+        ADMIN,
+        CLIENT
+    }
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(unique = true)
+    private String identifiant;
+    private String motDePasse;
+    private String email;
+    @Enumerated(EnumType.STRING)
+    private TypeUtilisateur typeUtilisateur;
+
+    public String getIdentifiant() {
+        return identifiant;
+    }
+
+    public void setIdentifiant(String identifiant) {
+        this.identifiant = identifiant;
+    }
+
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public TypeUtilisateur getTypeUtilisateur() {
+        return typeUtilisateur;
+    }
+
+    public void setTypeUtilisateur(TypeUtilisateur typeUtilisateur) {
+        this.typeUtilisateur = typeUtilisateur;
+    }
+    
+    
 
     public Long getId() {
         return id;

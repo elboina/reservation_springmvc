@@ -5,13 +5,19 @@
  */
 package reservation.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import reservation.dto.UtilisateurDTO;
+import reservation.entity.Chambre;
+import reservation.entity.Utilisateur;
+import reservation.service.ChambreService;
+import reservation.service.UtilisateurServiceCRUD;
 
 /**
  *
@@ -19,30 +25,82 @@ import reservation.dto.UtilisateurDTO;
  */
 @Controller
 public class UtilisateurController {
+    @Autowired
+    private UtilisateurServiceCRUD utc;
+    @Autowired
+    private ChambreService chs;
 
     @RequestMapping(value = "/identification", method = RequestMethod.GET)
     public String identificationGET(Model model) {
        
-        model.addAttribute("utilDTO", new UtilisateurDTO());
+        model.addAttribute("utilDTO", new Utilisateur());
         return "/identification.jsp";
 
     }
     @RequestMapping(value="/identification", method = RequestMethod.POST)
-    public String identificationPOST(@ModelAttribute("utilDTO") UtilisateurDTO utDTO, HttpSession session) {
-       // Renvoie vers page d'identification si pas admin/admin
-       if(!utDTO.getIdentifiant().equals("admin") || !utDTO.getMotDePasse().equals("admin"))
+    public String identificationPOST(@ModelAttribute("utilDTO") Utilisateur u, HttpSession session) {
+        
+        
+       // Renvoie vers page d'identification si pas membre
+       if(utc.findByIdentifiantAndMotDePasse(u.getIdentifiant(), u.getMotDePasse()) == null) {
            return "redirect:/identification";
+       } else {
+           u = utc.findByIdentifiantAndMotDePasse(u.getIdentifiant(), u.getMotDePasse());
+       }
        
-       // Enregistre en session que l'util est admin
-       session.setAttribute("adminConnecte", true);
        
-       //Renvoie vers la liste d'hôtels
+        session.setAttribute("utilConnecte", true);
+        session.setAttribute("usrConnecte",u);
+       
+       
+       // Enregistre en session que l'util est admin et Renvoie vers la liste d'hôtels
+       if(u.getTypeUtilisateur().equals(Utilisateur.TypeUtilisateur.ADMIN)) {
+           session.setAttribute("adminConnecte", true);
+           
        return "redirect:/hotel/lister";
+       }
+        
+       
+       //Renvoie vers l'accueil pour les clients
+//       return "redirect:/hotel/lister";
+       return "redirect:/utilisateur/accueil";
     }
     
+       
     @RequestMapping(value = "/deconnexion", method = RequestMethod.GET)
     public String deconnexion( HttpSession session) {
         session.invalidate();
         return "redirect:/hotel/lister";
     }
+    
+    @RequestMapping(value = "/inscription", method = RequestMethod.GET)
+    public String inscriptionGet(Model model) {
+        model.addAttribute("newUtil", new Utilisateur());
+        return "/inscription.jsp";
+    }
+    
+    @RequestMapping(value = "/inscription")
+    public String inscriptionPost(@ModelAttribute("newUtil") Utilisateur u) {
+        u.setTypeUtilisateur(Utilisateur.TypeUtilisateur.CLIENT);
+        utc.save(u);
+        return "redirect:/identification";
+    }
+    
+    @RequestMapping(value = "/utilisateur/accueil", method = RequestMethod.GET)
+    public String accueilClient(Utilisateur c, Model model, HttpSession session)
+    {
+        c = (Utilisateur)session.getAttribute("usrConnecte");
+        model.addAttribute("username", c.getIdentifiant());
+        return "/utilisateur/accueil.jsp";
+        
+    }
+    
+    @RequestMapping(value = "utilisateur/recherche", method = RequestMethod.GET)
+    public String rechercherChambres(Model model) {
+        List<Chambre> chambre = new ArrayList<>();
+        model.addAttribute("chambres", chambre);
+        return "/utilisateur/rechercher.jsp";
+    }
+    
+    
 }

@@ -48,10 +48,12 @@ public class ReservationController {
         for(int i=0; i < ch.size(); i++) 
             index.add(i);
         
+        
         model.addAttribute("dto", new ReservationDTO());
         model.addAttribute("clients",cls.findWithNomAndPrenom());
         model.addAttribute("chambres", ch);
         model.addAttribute("index", index);
+        model.addAttribute("etats", Reservation.EtatReservation.values());
         
         return "/reservations/ajouter.jsp";
     }
@@ -66,7 +68,8 @@ public class ReservationController {
         res.setDateReservation(dto.getDateReservation());
         res.setPrixTotal(dto.getPrixTotal());
         res.setId(dto.getId());
-        res.setEtatReservation(reservation.entity.Reservation.EtatReservation.valueOf(dto.getEtatReservation().toString()));
+//        String etat = dto.getEtatReservation().toString();
+//        res.setEtatReservation(Reservation.EtatReservation.valueOf(etat));
         rs.save(res);
         
         return "redirect:/reservations/lister";
