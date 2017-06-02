@@ -5,14 +5,18 @@
  */
 package reservation.service;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
 import org.springframework.data.repository.CrudRepository;
 import reservation.entity.Chambre;
+import reservation.entity.Hotel;
 
 /**
  *
  * @author formation
  */
 public interface ChambreService extends CrudRepository<Chambre, Long> {
-    
+    public ArrayList<Chambre> findAllByHotelAdresseLocalite(String localite);
+    public ArrayList<Chambre> findAllByHotel(Hotel h);
+    public ArrayList<Chambre> findAllByDateCheckInAfter(Date date);
 }

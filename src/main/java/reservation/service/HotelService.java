@@ -5,7 +5,7 @@
  */
 package reservation.service;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import org.springframework.data.repository.CrudRepository;
 import reservation.entity.Hotel;
 
@@ -14,5 +14,5 @@ import reservation.entity.Hotel;
  * @author formation
  */
 public interface HotelService extends CrudRepository<Hotel, Long> {
-    
+    public ArrayList<Hotel> findByAdresseLocalite(String localite);
 }

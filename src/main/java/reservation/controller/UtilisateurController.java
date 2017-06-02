@@ -6,7 +6,6 @@
 package reservation.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import reservation.entity.Chambre;
+import reservation.entity.Hotel;
 import reservation.entity.Utilisateur;
-import reservation.service.ChambreService;
+import reservation.service.HotelService;
+import reservation.service.RechercheService;
 import reservation.service.UtilisateurServiceCRUD;
 
 /**
@@ -28,7 +29,10 @@ public class UtilisateurController {
     @Autowired
     private UtilisateurServiceCRUD utc;
     @Autowired
-    private ChambreService chs;
+    private RechercheService rchs;
+    @Autowired
+    private HotelService hs;
+    
 
     @RequestMapping(value = "/identification", method = RequestMethod.GET)
     public String identificationGET(Model model) {
@@ -79,7 +83,7 @@ public class UtilisateurController {
         return "/inscription.jsp";
     }
     
-    @RequestMapping(value = "/inscription")
+    @RequestMapping(value = "/inscription", method = RequestMethod.POST)
     public String inscriptionPost(@ModelAttribute("newUtil") Utilisateur u) {
         u.setTypeUtilisateur(Utilisateur.TypeUtilisateur.CLIENT);
         utc.save(u);
@@ -95,12 +99,32 @@ public class UtilisateurController {
         
     }
     
-    @RequestMapping(value = "utilisateur/recherche", method = RequestMethod.GET)
+    @RequestMapping(value = "/utilisateur/recherche", method = RequestMethod.GET)
     public String rechercherChambres(Model model) {
-        List<Chambre> chambre = new ArrayList<>();
-        model.addAttribute("chambres", chambre);
+       
+        model.addAttribute("hotel", new Hotel());
+        
         return "/utilisateur/rechercher.jsp";
     }
+    
+    @RequestMapping(value = "/utilisateur/recherche", method = RequestMethod.POST)
+    public String rechercherPost(@ModelAttribute("hotel") Hotel h, HttpSession session) {
+        ArrayList<Chambre> chambres = new ArrayList<>();
+       
+       
+        
+        chambres = rchs.rechercherChambreParVille(h.getAdresse().getLocalite(), h.getChambres().get(0).getDateCheckIn(),h.getChambres().get(0).getDateCheckOut());
+
+       for(Chambre c:chambres) {
+           System.out.println(c.getNom());
+       }
+        session.setAttribute("resultats", chambres);
+        return "redirect:/utilisateur/recherche";
+    }
+    
+    
+    
+   
     
     
 }

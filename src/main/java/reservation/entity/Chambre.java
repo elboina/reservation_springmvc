@@ -38,40 +38,40 @@ public class Chambre implements Serializable {
     @JoinColumn(name="hotel_id")
     private Hotel hotel;
     
-//    @Temporal(TemporalType.TIMESTAMP)
-//    @Column(nullable = false)
-//    private Date dateCheckIn;
-//    
-//    @Temporal(TemporalType.TIMESTAMP)
-//    @Column(nullable = false)
-//    private Date dateCheckOut;
-//    
-//    @Column(nullable = false)
-//    private Integer nbPersonnes;
-//
-//    public Date getDateCheckIn() {
-//        return dateCheckIn;
-//    }
-//
-//    public void setDateCheckIn(Date dateCheckIn) {
-//        this.dateCheckIn = dateCheckIn;
-//    }
-//
-//    public Date getDateCheckOut() {
-//        return dateCheckOut;
-//    }
-//
-//    public void setDateCheckOut(Date dateCheckOut) {
-//        this.dateCheckOut = dateCheckOut;
-//    }
-//
-//    public Integer getNbPersonnes() {
-//        return nbPersonnes;
-//    }
-//
-//    public void setNbPersonnes(Integer nbPersonnes) {
-//        this.nbPersonnes = nbPersonnes;
-//    }
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date dateCheckIn;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date dateCheckOut;
+    
+    @Column(nullable = false)
+    private Integer nbPersonnes;
+
+    public Date getDateCheckIn() {
+        return dateCheckIn;
+    }
+
+    public void setDateCheckIn(Date dateCheckIn) {
+        this.dateCheckIn = dateCheckIn;
+    }
+
+    public Date getDateCheckOut() {
+        return dateCheckOut;
+    }
+
+    public void setDateCheckOut(Date dateCheckOut) {
+        this.dateCheckOut = dateCheckOut;
+    }
+
+    public Integer getNbPersonnes() {
+        return nbPersonnes;
+    }
+
+    public void setNbPersonnes(Integer nbPersonnes) {
+        this.nbPersonnes = nbPersonnes;
+    }
     @ManyToMany(mappedBy = "chambres")
     private List<Reservation> reservations = new ArrayList<>();
 
