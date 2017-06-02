@@ -30,7 +30,7 @@
                         <th style="border: 1px black solid;">Nom</th>
                         <th style="border: 1px black solid;">Numéro</th>
                         <th style="border: 1px black solid;">Rue</th>
-                        <th style="border: 1px black solid;">Code Postal</th>
+                        <!--<th style="border: 1px black solid;">Code Postal</th>-->
                         <th style="border: 1px black solid;">Localité</th>
                         <th style="border: 1px black solid;">Pays</th>
                         <th style="border: 1px black solid;">Action</th>
@@ -45,7 +45,7 @@
                         <td style="border: 1px black solid;">${h.nom}</td>
                         <td style="border: 1px black solid;">${h.adresse.num}</td>
                         <td style="border: 1px black solid;">${h.adresse.rue}</td>
-                        <td style="border: 1px black solid;">${h.adresse.codePostal}</td>
+                       
                         <td style="border: 1px black solid;">${h.adresse.localite}</td>
                         <td style="border: 1px black solid;">${h.adresse.pays}</td>
                         <td style="border: 1px black solid;"><a href='<spring:url value="/hotel/supprimer/${h.id}" />'>Supprimer</a></td>
