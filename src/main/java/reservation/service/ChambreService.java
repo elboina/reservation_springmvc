@@ -14,5 +14,5 @@ import reservation.entity.Chambre;
  * @author formation
  */
 public interface ChambreService extends CrudRepository<Chambre, Long> {
-    public List<Chambre> findByHotelNomAndHotelLocaliteAndReservationsPrixTotal(String nom,String localite, double prix);
+    
 }
