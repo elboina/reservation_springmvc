@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import reservation.entity.Reservation;
 import reservation.service.ChambreService;
 import reservation.service.ClientService;
 import reservation.service.ReservationService;
@@ -39,9 +40,13 @@ public class ReservationClientController {
 
     @RequestMapping(value = "/mesreservations")
     public String mesReservations(Model model){
-        model.addAttribute("reservations", serviceReservation.findAll());
+        model.addAttribute("reservationsAPayer", serviceReservation.findByClientIdAndEtatReservation(1, Reservation.EtatReservation.A_PAYER));
+        model.addAttribute("reservationsPayees", serviceReservation.findByClientIdAndEtatReservation(1, Reservation.EtatReservation.PAYE));
+        model.addAttribute("reservationsAnnulees", serviceReservation.findByClientIdAndEtatReservation(1, Reservation.EtatReservation.ANNULE));
         
         return "/reservationclient/mesreservations.jsp";
     }
+    
+    
 
 }
