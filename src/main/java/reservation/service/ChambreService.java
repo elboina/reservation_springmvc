@@ -23,6 +23,7 @@ public interface ChambreService extends CrudRepository<Chambre, Long> {
             + "JOIN c.hotel h "
             + "WHERE h.adresse.localite = ?1 "
             + "AND c.nbPersonnes >= ?2 "
+            + " "
             + " EXCEPT "
             + "SELECT c "
             + " FROM Chambre c "
