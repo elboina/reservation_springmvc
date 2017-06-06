@@ -14,12 +14,25 @@
     </head>
     <body>
         <c:import url="../_MENU.jsp"></c:import>
-    <contenu>
-        <h1>Hello World!</h1>
-        
-        Contenu
-        
-    </contenu>
-        <c:import url="../_PIED.jsp"></c:import>
-    </body>
+        <contenu>
+            <h1>Mes réservations</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${reservations}" var="resliste">
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </contenu>
+    <c:import url="../_PIED.jsp"></c:import>
+</body>
 </html>

@@ -17,7 +17,7 @@
     <contenu>
         <h1>Hello World!</h1>
         
-        Contenu
+        
         
     </contenu>
         <c:import url="../_PIED.jsp"></c:import>

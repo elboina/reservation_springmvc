@@ -37,24 +37,11 @@ public class ReservationClientController {
     @Autowired
     private ClientService serviceClient;
 
-    @RequestMapping(value = "/reservationclient")
-    public String reserverBidonGET() {
-
-        long idClient = 1;
-        long idChambre = 1;
-        Date dateCheckIn = new Date("06/02/2017");
-        Date dateCheckOut = new Date("06/10/2017");
-        
-        
-        
-        return "a_completer.jsp";
-    }
-    
     @RequestMapping(value = "/mesreservations")
     public String mesReservations(Model model){
         model.addAttribute("reservations", serviceReservation.findAll());
         
-        return "/mesreservations.jsp";
+        return "/reservationclient/mesreservations.jsp";
     }
 
 }

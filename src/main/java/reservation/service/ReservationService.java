@@ -16,4 +16,5 @@ import reservation.entity.Reservation;
  */
 public interface ReservationService extends CrudRepository<Reservation, Long> {
     
+    public List<Reservation> findByClientIdAndEtatReservation(long id, Reservation.EtatReservation etatres);
 }
