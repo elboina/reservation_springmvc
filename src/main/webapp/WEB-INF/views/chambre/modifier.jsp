@@ -25,7 +25,10 @@
         <form:hidden path="id"/>
         <label>Nom : </label> <form:input path="nom"/><br>
         <label>Prix :</label> <form:input path="prix" /><br>
-        <label> Hotel : </label> <form:select path="hotel.id"  items="${hotels}" itemLabel="nom" itemValue="id" />
+        <label> Hotel : </label> <form:select path="hotel.id"  items="${hotels}" itemLabel="nom" itemValue="id" /><br>
+        <label>Date check-in : </label> <form:input path="dateCheckIn" /><br>
+        <label>Date check-out : </label> <form:input path="dateCheckOut" /><br>
+        <label>Nombre de personnes : </label> <form:input path="nbPersonnes" /><br>
         <input type="submit" value="Envoyer" />
     </form:form>
         

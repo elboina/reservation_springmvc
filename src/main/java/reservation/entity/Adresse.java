@@ -16,7 +16,7 @@ public class Adresse {
     private String rue;
     private Long num;
     private String localite;
-//    private Long codePostal;
+    private Long codePostal;
     private String pays;
 
     public String getRue() {
@@ -43,13 +43,13 @@ public class Adresse {
         this.localite = localite;
     }
 
-////    public Long getCodePostal() {
-//        return codePostal;
-//    }
+    public Long getCodePostal() {
+       return codePostal;
+    }
 
-//    public void setCodePostal(long codePostal) {
-//        this.codePostal = codePostal;
-//    }
+  public void setCodePostal(long codePostal) {
+    this.codePostal = codePostal;
+ }
 
     public String getPays() {
         return pays;

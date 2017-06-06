@@ -6,7 +6,6 @@
 package reservation.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import reservation.entity.Chambre;
+import reservation.entity.Hotel;
 import reservation.entity.Utilisateur;
-import reservation.service.ChambreService;
+import reservation.service.HotelService;
+import reservation.service.RechercheService;
 import reservation.service.UtilisateurServiceCRUD;
 
 /**
@@ -28,7 +29,10 @@ public class UtilisateurController {
     @Autowired
     private UtilisateurServiceCRUD utc;
     @Autowired
-    private ChambreService chs;
+    private RechercheService rchs;
+    @Autowired
+    private HotelService hs;
+    
 
     @RequestMapping(value = "/identification", method = RequestMethod.GET)
     public String identificationGET(Model model) {
@@ -79,7 +83,7 @@ public class UtilisateurController {
         return "/inscription.jsp";
     }
     
-    @RequestMapping(value = "/inscription")
+    @RequestMapping(value = "/inscription", method = RequestMethod.POST)
     public String inscriptionPost(@ModelAttribute("newUtil") Utilisateur u) {
         u.setTypeUtilisateur(Utilisateur.TypeUtilisateur.CLIENT);
         utc.save(u);
@@ -95,12 +99,11 @@ public class UtilisateurController {
         
     }
     
-    @RequestMapping(value = "utilisateur/recherche", method = RequestMethod.GET)
-    public String rechercherChambres(Model model) {
-        List<Chambre> chambre = new ArrayList<>();
-        model.addAttribute("chambres", chambre);
-        return "/utilisateur/rechercher.jsp";
-    }
+    
+    
+    
+    
+   
     
     
 }

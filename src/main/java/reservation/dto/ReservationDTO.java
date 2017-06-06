@@ -27,6 +27,24 @@ public class ReservationDTO {
     private Client client;
     private List<Long> chambresId = new ArrayList<>();
     private EtatReservation etatReservation;
+    private Date dateCheckIn;
+    private Date dateCheckOut;
+
+    public Date getDateCheckIn() {
+        return dateCheckIn;
+    }
+
+    public void setDateCheckIn(Date dateCheckIn) {
+        this.dateCheckIn = dateCheckIn;
+    }
+
+    public Date getDateCheckOut() {
+        return dateCheckOut;
+    }
+
+    public void setDateCheckOut(Date dateCheckOut) {
+        this.dateCheckOut = dateCheckOut;
+    }
 
     public EtatReservation getEtatReservation() {
         return etatReservation;
