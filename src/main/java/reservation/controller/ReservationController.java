@@ -68,6 +68,9 @@ public class ReservationController {
         res.setDateReservation(dto.getDateReservation());
         res.setPrixTotal(dto.getPrixTotal());
         res.setId(dto.getId());
+        res.setDateCheckIn(dto.getDateCheckIn());
+        res.setDateCheckOut(dto.getDateCheckOut());
+        
 //        String etat = dto.getEtatReservation().toString();
 //        res.setEtatReservation(Reservation.EtatReservation.valueOf(etat));
         rs.save(res);

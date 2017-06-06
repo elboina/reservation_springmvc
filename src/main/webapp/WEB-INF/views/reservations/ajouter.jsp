@@ -29,6 +29,8 @@
         <label>Client : </label><form:select path="client.id" items="${clients}" itemLabel="prenom" itemValue="id" /><br>
         <label>Date : </label><form:input path="dateReservation" /><br>
         <label>Prix total : </label><form:input path="prixTotal" /><br>
+        <label>Date check-in : </label> <form:input path="dateCheckIn" /><br>
+        <label>Date check-out : </label> <form:input path="dateCheckOut" /><br>
         <label>Etat : </label><form:input path="etatReservation"  /><br>
         
         <label>Chambres : </label><form:checkboxes path="chambresId" items="${chambres}" itemLabel="nom" itemValue="id"/><br>

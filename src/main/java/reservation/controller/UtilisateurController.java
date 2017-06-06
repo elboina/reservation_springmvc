@@ -99,28 +99,7 @@ public class UtilisateurController {
         
     }
     
-    @RequestMapping(value = "/utilisateur/recherche", method = RequestMethod.GET)
-    public String rechercherChambres(Model model) {
-       
-        model.addAttribute("hotel", new Hotel());
-        
-        return "/utilisateur/rechercher.jsp";
-    }
     
-    @RequestMapping(value = "/utilisateur/recherche", method = RequestMethod.POST)
-    public String rechercherPost(@ModelAttribute("hotel") Hotel h, HttpSession session) {
-        ArrayList<Chambre> chambres = new ArrayList<>();
-       
-       
-        
-        chambres = rchs.rechercherChambreParVille(h.getAdresse().getLocalite(), h.getChambres().get(0).getDateCheckIn(),h.getChambres().get(0).getDateCheckOut());
-
-       for(Chambre c:chambres) {
-           System.out.println(c.getNom());
-       }
-        session.setAttribute("resultats", chambres);
-        return "redirect:/utilisateur/recherche";
-    }
     
     
     

@@ -7,16 +7,29 @@ package reservation.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import reservation.entity.Chambre;
-import reservation.entity.Hotel;
 
 /**
  *
  * @author formation
  */
 public interface ChambreService extends CrudRepository<Chambre, Long> {
-    public ArrayList<Chambre> findAllByHotelAdresseLocalite(String localite);
-    public ArrayList<Chambre> findAllByHotel(Hotel h);
-    public ArrayList<Chambre> findAllByDateCheckInAfter(Date date);
+    public ArrayList<Chambre> findAllByHotelAdresseLocaliteAndNbPersonnesGreaterThan(String localite, int nbPersonnes);
+    
+    @Query("SELECT c "
+            + "FROM Chambre c "
+            + "JOIN c.hotel h "
+            + "WHERE h.adresse.localite = ?1 "
+            + "AND c.nbPersonnes >= ?2 "
+            + " EXCEPT "
+            + "SELECT c "
+            + " FROM Chambre c "
+            + " JOIN c.reservations r "
+            + " WHERE r.dateCheckOut >= ?3 "
+            + " AND r.dateCheckIn <= ?4"
+            )
+    public ArrayList<Chambre> rechercherChambresParVilleCapaciteDates(String localite, int nbPersonnes, Date dateArrivee, Date dateSortie);
+    
 }

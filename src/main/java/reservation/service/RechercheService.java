@@ -19,30 +19,31 @@ import reservation.entity.Reservation;
  */
 @Service
 public class RechercheService {
+
     @Autowired
     private ChambreService chs;
-    @Autowired
-    private HotelService hs;
-    public ArrayList<Chambre> rechercherChambreParVille (String ville, Date dateArrivee, Date dateDepart) {
-        ArrayList<Hotel> hotels = hs.findByAdresseLocalite(ville);
-        
+
+    public ArrayList<Chambre> rechercherChambreParVille(String ville, int nbPersonnes, Date dateArrivee, Date dateDepart) {
+
         ArrayList<Chambre> chambres = new ArrayList<>();
         
-        for(Hotel h:hotels) {
-            chambres.addAll(chs.findAllByHotel(h));
-        }
+
+        chambres = chs.findAllByHotelAdresseLocaliteAndNbPersonnesGreaterThan(ville, nbPersonnes);
         
         for(Chambre c:chambres) {
             for(Reservation r:c.getReservations()) {
-                if(r.getDateReservation().after(dateArrivee) && r.getDateReservation().before(dateDepart)) {
+                if(dateArrivee.before(r.getDateCheckOut()) && dateDepart.after(r.getDateCheckIn())) {
                     chambres.remove(c);
                 }
             }
 
         }
-        
         return chambres;
     }
     
-   
+    public ArrayList<Chambre> rechercherChambreParVilleV2(String ville, int nbPersonnes, Date dateArrivee, Date dateDepart) {
+        ArrayList<Chambre> chambres = chs.rechercherChambresParVilleCapaciteDates(ville, nbPersonnes, dateArrivee, dateDepart);
+        return chambres;
+    }
+
 }

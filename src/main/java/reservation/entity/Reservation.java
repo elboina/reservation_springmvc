@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -54,6 +55,34 @@ public class Reservation implements Serializable {
     
     @Enumerated(EnumType.STRING)
     private EtatReservation etatReservation;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date dateCheckIn;
+
+    public Date getDateCheckIn() {
+        return dateCheckIn;
+    }
+
+    public void setDateCheckIn(Date dateCheckIn) {
+        this.dateCheckIn = dateCheckIn;
+    }
+
+    
+
+    public Date getDateCheckOut() {
+        return dateCheckOut;
+    }
+
+    public void setDateCheckOut(Date dateCheckOut) {
+        this.dateCheckOut = dateCheckOut;
+    }
+
+    
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date dateCheckOut;
 
     public EtatReservation getEtatReservation() {
         return etatReservation;

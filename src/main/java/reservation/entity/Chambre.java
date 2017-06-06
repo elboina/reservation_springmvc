@@ -7,7 +7,6 @@ package reservation.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -38,32 +35,12 @@ public class Chambre implements Serializable {
     @JoinColumn(name="hotel_id")
     private Hotel hotel;
     
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date dateCheckIn;
     
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date dateCheckOut;
     
     @Column(nullable = false)
     private Integer nbPersonnes;
 
-    public Date getDateCheckIn() {
-        return dateCheckIn;
-    }
-
-    public void setDateCheckIn(Date dateCheckIn) {
-        this.dateCheckIn = dateCheckIn;
-    }
-
-    public Date getDateCheckOut() {
-        return dateCheckOut;
-    }
-
-    public void setDateCheckOut(Date dateCheckOut) {
-        this.dateCheckOut = dateCheckOut;
-    }
+    
 
     public Integer getNbPersonnes() {
         return nbPersonnes;

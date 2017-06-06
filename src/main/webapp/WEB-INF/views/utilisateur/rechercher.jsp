@@ -23,9 +23,10 @@
         </c:set>
 
         <form:form modelAttribute="hotel" >
-            <label>Ville :</label> <form:input path="adresse.localite" />
-            <label>Date d'arrivée :</label> <form:input path="chambres[0].dateCheckIn" />
-            <label>Date de départ :</label> <form:input path="chambres[0].dateCheckOut" />
+            <label>Ville :</label> <form:input path="hotel.adresse.localite" />
+            <label>Nombre de personnes :</label> <form:input path="nbPersonnes" />
+            <label>Date d'arrivée :</label> <form:input path="reservations[0].dateCheckIn" />
+            <label>Date de départ :</label> <form:input path="reservations[0].dateCheckOut" />
             <input type="Submit" value="Rechercher" />
         </form:form>
 
