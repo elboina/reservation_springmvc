@@ -35,7 +35,7 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client")
     private List<Reservation> reservations = new ArrayList<>();
     
-    @OneToOne
+    @OneToOne(mappedBy = "client")
     private Utilisateur utilisateur;
 
     public Utilisateur getUtilisateur() {

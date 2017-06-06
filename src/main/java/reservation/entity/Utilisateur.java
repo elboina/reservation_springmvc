@@ -37,8 +37,9 @@ public class Utilisateur implements Serializable {
     private String email;
     @Enumerated(EnumType.STRING)
     private TypeUtilisateur typeUtilisateur;
+    
     @OneToOne
-    @JoinColumn
+    @JoinColumn(name="client_id")
     private Client client;
 
     public Client getClient() {

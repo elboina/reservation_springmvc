@@ -51,7 +51,7 @@ public class ReservationClientController {
     }
     
     @RequestMapping(value = "/mesreservations")
-    public String recapGET(Model model){
+    public String mesReservations(Model model){
         model.addAttribute("reservations", serviceReservation.findAll());
         
         return "/mesreservations.jsp";

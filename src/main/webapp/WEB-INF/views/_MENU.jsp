@@ -35,6 +35,8 @@
         <c:otherwise>
             <ul>
                 <li><a href="<spring:url value="/deconnexion" />">Déconnexion</a></li>
+                <li><a href="<spring:url value="/utilisateur/recherche" />">Rechercher une chambre</a></li>
+                <li><a href="<spring:url value="/mesreservations" />">Mes réservations</a></li>
             </ul>
         </c:otherwise>
     </c:choose>
