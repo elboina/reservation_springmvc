@@ -13,6 +13,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -35,7 +37,20 @@ public class Utilisateur implements Serializable {
     private String email;
     @Enumerated(EnumType.STRING)
     private TypeUtilisateur typeUtilisateur;
+    @OneToOne
+    @JoinColumn
+    private Client client;
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    
+    
     public String getIdentifiant() {
         return identifiant;
     }

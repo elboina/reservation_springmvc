@@ -22,6 +22,7 @@ import reservation.service.ReservationServiceLogMetier;
  * @author formation
  */
 @Controller
+@RequestMapping()
 public class ReservationClientController {
 
     @Autowired
@@ -36,7 +37,7 @@ public class ReservationClientController {
     @Autowired
     private ClientService serviceClient;
 
-    @RequestMapping(value = "/reserver")
+    @RequestMapping(value = "/reservationclient")
     public String reserverBidonGET() {
 
         long idClient = 1;
@@ -47,6 +48,13 @@ public class ReservationClientController {
         
         
         return "a_completer.jsp";
+    }
+    
+    @RequestMapping(value = "/mesreservations")
+    public String recapGET(Model model){
+        model.addAttribute("reservations", serviceReservation.findAll());
+        
+        return "/mesreservations.jsp";
     }
 
 }
