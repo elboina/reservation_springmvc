@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import reservation.entity.Chambre;
+import reservation.entity.Client;
 import reservation.entity.Hotel;
 import reservation.entity.Utilisateur;
+import reservation.service.ClientService;
 import reservation.service.HotelService;
 import reservation.service.RechercheService;
 import reservation.service.UtilisateurServiceCRUD;
@@ -32,6 +34,8 @@ public class UtilisateurController {
     private RechercheService rchs;
     @Autowired
     private HotelService hs;
+    @Autowired
+    private ClientService cls;
     
 
     @RequestMapping(value = "/identification", method = RequestMethod.GET)
@@ -86,7 +90,16 @@ public class UtilisateurController {
     @RequestMapping(value = "/inscription", method = RequestMethod.POST)
     public String inscriptionPost(@ModelAttribute("newUtil") Utilisateur u) {
         u.setTypeUtilisateur(Utilisateur.TypeUtilisateur.CLIENT);
+        Client c = new Client();
+        cls.save(c);
+        
+        c.setUtilisateur(u);
+        
+        
+        
+        u.setClient(c);
         utc.save(u);
+        
         return "redirect:/identification";
     }
     
