@@ -8,6 +8,7 @@ package reservation.controller;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import reservation.entity.Chambre;
 import reservation.service.RechercheService;
+import reservation.spring.ControllerAdvice;
 
 /**
  *
@@ -28,9 +30,15 @@ public class RechercheController {
     private RechercheService rchs;
 
     @RequestMapping(value = "/recherche", method = RequestMethod.GET)
-    public String rechercherChambres(Model model) {
+    public String rechercherChambres(Model model, HttpStatus status) {
 
         model.addAttribute("chambre", new Chambre());
+        if(status == HttpStatus.valueOf(404)) {
+            ControllerAdvice ca = new ControllerAdvice();
+            ca.exceptionHandler(new Exception());
+            
+            
+        }
 
         return "/utilisateur/rechercher.jsp";
     }
@@ -45,5 +53,6 @@ public class RechercheController {
         session.setAttribute("dateCheckOut", ch.getReservations().get(0).getDateCheckOut());
         session.setAttribute("nombreResultats", nbResultats);
         return "redirect:/utilisateur/recherche";
+        
     }
 }
