@@ -5,7 +5,18 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<c:set var="urlapayer">
+    <spring:url value="/detailreservation"/>
+</c:set>
+<c:set var="urlpayees">
+    <spring:url value="/detailreservation/paye"/>
+</c:set>
+<c:set var="urlannulees">
+    <spring:url value="/detailreservation/annulees"/>
+</c:set>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,6 +36,7 @@
                         <th style="border: black solid 1px">Nom Client</th>
                         <th style="border: black solid 1px">Date</th>
                         <th style="border: black solid 1px">Prix</th>
+                        <th style="border: black solid 1px">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +46,7 @@
                         <td style="border: black solid 1px">${resap.client.nom}</td>
                         <td style="border: black solid 1px">${resap.dateCheckIn}</td>
                         <td style="border: black solid 1px">${resap.prixTotal}</td>
+                        <td style="border: black solid 1px"><a href="${urlpayees}/${resap.id}">Payer</a>/<a href="${urlannulees}/${resap.id}">Annuler</a>/<a href="<spring:url value="/detailreservation/${resap.id}"/>">Details</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -50,6 +63,7 @@
                         <th style="border: black solid 1px">Nom Client</th>
                         <th style="border: black solid 1px">Date</th>
                         <th style="border: black solid 1px">Prix</th>
+                        <th style="border: black solid 1px">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,6 +73,7 @@
                         <td style="border: black solid 1px">${resap.client.nom}</td>
                         <td style="border: black solid 1px">${resap.dateCheckIn}</td>
                         <td style="border: black solid 1px">${resap.prixTotal}</td>
+                        <td style="border: black solid 1px"><a href="${urlpayees}/${resap.id}">Payer</a>/<a href="${urlannulees}/${resap.id}">Annuler</a>/<a href="<spring:url value="/detailreservation/${resap.id}"/>">Details</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -75,6 +90,7 @@
                         <th style="border: black solid 1px">Nom Client</th>
                         <th style="border: black solid 1px">Date</th>
                         <th style="border: black solid 1px">Prix</th>
+                        <th style="border: black solid 1px">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,6 +100,7 @@
                         <td style="border: black solid 1px">${resap.client.nom}</td>
                         <td style="border: black solid 1px">${resap.dateCheckIn}</td>
                         <td style="border: black solid 1px">${resap.prixTotal}</td>
+                        <td style="border: black solid 1px"><a href="${urlpayees}/${resap.id}">Payer</a>/<a href="${urlannulees}/${resap.id}">Annuler</a>/<a href="<spring:url value="/detailreservation/${resap.id}"/>">Details</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

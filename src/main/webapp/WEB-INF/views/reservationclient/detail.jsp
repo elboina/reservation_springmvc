@@ -30,8 +30,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>${reservation.chambres[0].nom}</td>
+                    <tr>
+                        <td>${reservation.chambres[0].nom}</td>
                     <td> ${reservation.client.prenom} ${reservation.client.nom}</td>
                     <td> ${reservation.dateCheckIn}</td>
                     <td> ${reservation.dateCheckOut}</td>
@@ -40,7 +40,7 @@
                 </tr>
             </tbody>
         </table>
-
+                    <a href="<spring:url value="/mesreservations"/>">Retour Liste Réservations</a>
 
     </contenu>
     <c:import url="../_PIED.jsp"></c:import>
