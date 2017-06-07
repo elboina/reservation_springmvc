@@ -18,7 +18,7 @@
     <contenu>
         <h1>Hello ${username}</h1>
         
-    <a href="<spring:url value="/utilisateur/recherche" />">Lancer une recherche</a>
+    
         
     </contenu>
         <c:import url="../_PIED.jsp"></c:import>

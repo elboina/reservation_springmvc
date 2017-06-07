@@ -30,6 +30,8 @@
             <label>Date de départ :</label> <form:input path="reservations[0].dateCheckOut" />
             <input type="Submit" value="Rechercher" />
         </form:form>
+            
+            <h1>Résultats (${nombreResultats})</h1>
 
          <table>
             <thead>
@@ -47,7 +49,7 @@
                         <td>${ch.nom}</td>
                         <td>${ch.prix}</td>
                         <td>${ch.hotel.nom}</td>
-                        <td><button><a href="<spring:url value="/detailreservation/${ch.id}" />">Réserver</a></button></td>
+                        <td><button><a href="<spring:url value="/detailreservation/reserver/${ch.id}" />">Réserver</a></button></td>
 
                     </tr>
                 </c:forEach>

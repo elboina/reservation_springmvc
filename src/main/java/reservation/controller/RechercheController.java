@@ -39,9 +39,11 @@ public class RechercheController {
     public String rechercherPost(@ModelAttribute("chambre") Chambre ch, HttpSession session) {
 //        ArrayList<Chambre> chambres = rchs.rechercherChambreParVille(ch.getHotel().getAdresse().getLocalite(), ch.getNbPersonnes(), ch.getReservations().get(0).getDateCheckIn(), ch.getReservations().get(0).getDateCheckOut());
         ArrayList<Chambre> chambres = rchs.rechercherChambreParVilleV2(ch.getHotel().getAdresse().getLocalite(), ch.getNbPersonnes(), ch.getReservations().get(0).getDateCheckIn(), ch.getReservations().get(0).getDateCheckOut());
+        int nbResultats = chambres.size();
         session.setAttribute("resultats", chambres);
         session.setAttribute("dateCheckIn", ch.getReservations().get(0).getDateCheckIn());
         session.setAttribute("dateCheckOut", ch.getReservations().get(0).getDateCheckOut());
+        session.setAttribute("nombreResultats", nbResultats);
         return "redirect:/utilisateur/recherche";
     }
 }

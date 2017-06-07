@@ -5,12 +5,15 @@
  */
 package reservation.controller;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import reservation.entity.Client;
 import reservation.entity.Reservation;
+import reservation.entity.Utilisateur;
 import reservation.service.ChambreService;
 import reservation.service.ClientService;
 import reservation.service.ReservationService;
@@ -37,10 +40,13 @@ public class ReservationClientController {
     private ClientService serviceClient;
 
     @RequestMapping(value = "/mesreservations")
-    public String mesReservations(Model model) {
-        model.addAttribute("reservationsAPayer", serviceReservation.findByClientIdAndEtatReservation(1, Reservation.EtatReservation.A_PAYER));
-        model.addAttribute("reservationsPayees", serviceReservation.findByClientIdAndEtatReservation(1, Reservation.EtatReservation.PAYE));
-        model.addAttribute("reservationsAnnulees", serviceReservation.findByClientIdAndEtatReservation(1, Reservation.EtatReservation.ANNULE));
+    public String mesReservations(Model model, HttpSession session) {
+        Utilisateur u = (Utilisateur) session.getAttribute("usrConnecte");
+        Client cli = u.getClient();
+        long cliId = cli.getId();
+        model.addAttribute("reservationsAPayer", serviceReservation.findByClientIdAndEtatReservation(cliId, Reservation.EtatReservation.A_PAYER));
+        model.addAttribute("reservationsPayees", serviceReservation.findByClientIdAndEtatReservation(cliId, Reservation.EtatReservation.PAYE));
+        model.addAttribute("reservationsAnnulees", serviceReservation.findByClientIdAndEtatReservation(cliId, Reservation.EtatReservation.ANNULE));
 
         return "/reservationclient/mesreservations.jsp";
     }

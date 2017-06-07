@@ -31,7 +31,7 @@ public class ReserverClicController {
     @Autowired
     private ChambreService chs;
     
-    @RequestMapping(value = "/detailreservation/{idChambre}", method = RequestMethod.GET)
+    @RequestMapping(value = "/detailreservation/reserver/{idChambre}", method = RequestMethod.GET)
     public String clicReserver(Model model, HttpSession session, @PathVariable("idChambre") long idChambre) {
         Reservation res = new Reservation();
         Utilisateur u = (Utilisateur) session.getAttribute("usrConnecte");
