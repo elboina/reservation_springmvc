@@ -38,7 +38,7 @@ public class ReservationController {
     @RequestMapping(value = "/lister", method = RequestMethod.GET)
     public String lister(Model model) {
         model.addAttribute("listeReservations", rs.findAll() );
-        return "reservations/lister.jsp";
+        return "reservations/lister";
     }
     
     @RequestMapping(value = "/ajouter", method = RequestMethod.GET)
@@ -55,14 +55,14 @@ public class ReservationController {
         model.addAttribute("index", index);
         model.addAttribute("etats", Reservation.EtatReservation.values());
         
-        return "/reservations/ajouter.jsp";
+        return "/reservations/ajouter";
     }
     
     @RequestMapping(value = "/ajouter", method = RequestMethod.POST)
     public String ajouterPOST(@ModelAttribute("dto") ReservationDTO dto) {
         Reservation res = new Reservation();
         for(Long id:dto.getChambresId()) {
-            res.getChambres().add(chs.findOne(id));
+            res.getChambres().add(chs.rechercherParId(id));
         }
         res.setClient(dto.getClient());
         res.setDateReservation(dto.getDateReservation());
@@ -80,7 +80,7 @@ public class ReservationController {
     
    @RequestMapping(value ="/supprimer/{id}", method = RequestMethod.GET)
    public String supprimer(@PathVariable("id") long id) {
-       rs.delete(id);
+       rs.deleteById(id);
        return "redirect:/reservations/lister";
    }
    

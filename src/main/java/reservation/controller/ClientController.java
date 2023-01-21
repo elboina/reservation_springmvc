@@ -30,19 +30,19 @@ public class ClientController {
     @RequestMapping(value = "/lister", method = RequestMethod.GET)
     public String lister(Model model) {
         model.addAttribute("clients", cls.findWithNomAndPrenom());
-        return "/client/lister.jsp";
+        return "/client/lister";
     }
     
     @RequestMapping(value = "/supprimer/{id}", method = RequestMethod.GET)
     public String supprimer(@PathVariable("id") long idClient) {
-        cls.delete(idClient);
+        cls.deleteById(idClient);
         return "redirect:/client/lister";
     }
     
     @RequestMapping(value = "/modifier/{id}", method = RequestMethod.GET)
     public String modifierGet(@PathVariable("id") long idClient, Model model) {
-        model.addAttribute("client", cls.findOne(idClient));
-        return "/client/modifier.jsp";
+        model.addAttribute("client", cls.findById(idClient));
+        return "/client/modifier";
     }
     
     @RequestMapping(value = "/modifier", method = RequestMethod.POST)
@@ -54,7 +54,7 @@ public class ClientController {
     @RequestMapping(value="/ajouter", method = RequestMethod.GET)
     public String ajouterGet(Model model) {
         model.addAttribute("client", new Client());
-        return "/client/ajouter.jsp";
+        return "/client/ajouter";
     }
     
     @RequestMapping(value = "/ajouter", method = RequestMethod.POST)

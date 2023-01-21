@@ -5,7 +5,6 @@
  */
 package reservation.controller;
 
-import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import reservation.entity.Chambre;
 import reservation.entity.Client;
-import reservation.entity.Hotel;
 import reservation.entity.Utilisateur;
 import reservation.service.ClientService;
 import reservation.service.HotelService;
@@ -31,10 +28,6 @@ public class UtilisateurController {
     @Autowired
     private UtilisateurServiceCRUD utc;
     @Autowired
-    private RechercheService rchs;
-    @Autowired
-    private HotelService hs;
-    @Autowired
     private ClientService cls;
     
 
@@ -42,7 +35,7 @@ public class UtilisateurController {
     public String identificationGET(Model model) {
        
         model.addAttribute("utilDTO", new Utilisateur());
-        return "/identification.jsp";
+        return "/identification";
 
     }
     @RequestMapping(value="/identification", method = RequestMethod.POST)
@@ -84,7 +77,7 @@ public class UtilisateurController {
     @RequestMapping(value = "/inscription", method = RequestMethod.GET)
     public String inscriptionGet(Model model) {
         model.addAttribute("newUtil", new Utilisateur());
-        return "/inscription.jsp";
+        return "/inscription";
     }
     
     @RequestMapping(value = "/inscription", method = RequestMethod.POST)

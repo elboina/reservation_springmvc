@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author formation
  */
 @Controller
+@RequestMapping("/")
 public class HomePageController {
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String home(){
-        return "home.jsp";
+        return "home";
     } 
             
 }

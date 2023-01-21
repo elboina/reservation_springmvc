@@ -10,7 +10,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reservation.entity.Chambre;
-import reservation.entity.Hotel;
 import reservation.entity.Reservation;
 
 /**

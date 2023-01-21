@@ -5,49 +5,54 @@
  */
 package reservation.spring;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import java.util.Map;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 /**
  *
  * @author ETY
  */
 @Configuration
-//@SpringBootApplication
-//@EnableAutoConfiguration
+@EnableWebMvc
 @ComponentScan(basePackages = "reservation") 
 @EnableJpaRepositories(basePackages = "reservation")
-@EnableWebMvc
-public class SpringConfig extends WebMvcConfigurerAdapter{
-
+@EnableTransactionManagement
+public class SpringConfig implements WebMvcConfigurer {
+    
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    public void addResourceHandlers(ResourceHandlerRegistry resourceHandlerRegistry) {
+        resourceHandlerRegistry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
- 
+    
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
- 
+
     @Bean
-    public InternalResourceViewResolver jspViewResolver() {
+    public ViewResolver jspViewResolver() {
         InternalResourceViewResolver bean = new InternalResourceViewResolver();
         bean.setPrefix("/WEB-INF/views/");
-//        bean.setSuffix(".jsp");
+        bean.setViewClass(JstlView.class);
+        bean.setSuffix(".jsp");
         return bean;
     }
  /*
@@ -57,7 +62,7 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
     }
  */
     @Bean(name = "messageSource")
-    public ReloadableResourceBundleMessageSource getMessageSource() {
+    public MessageSource getMessageSource() {
         ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
         resource.setBasename("classpath:messages");
         resource.setDefaultEncoding("UTF-8");
@@ -67,9 +72,9 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
     
     
     @Bean
-    public PlatformTransactionManager transactionManager() {
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager txManager = new JpaTransactionManager();
-        txManager.setEntityManagerFactory(entityManagerFactory());
+        txManager.setEntityManagerFactory(entityManagerFactory);
         return txManager;
     }
 
@@ -77,5 +82,5 @@ public class SpringConfig extends WebMvcConfigurerAdapter{
     public EntityManagerFactory entityManagerFactory() {
         return Persistence.createEntityManagerFactory("PU");
     }
-
+   
 }

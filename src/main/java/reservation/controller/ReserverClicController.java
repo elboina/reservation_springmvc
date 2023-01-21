@@ -38,7 +38,7 @@ public class ReserverClicController {
         Date dateCheckIn = (Date) session.getAttribute("dateCheckIn");
         Date dateCheckOut = (Date) session.getAttribute("dateCheckOut");
         Client c = u.getClient();
-        Chambre ch = chs.findOne(idChambre);
+        Chambre ch = chs.rechercherParId(idChambre);
         res.setEtatReservation(Reservation.EtatReservation.A_PAYER);
         res.setClient(c);
         res.getChambres().add(ch);
@@ -52,6 +52,6 @@ public class ReserverClicController {
         rs.save(res);
         model.addAttribute("reservation", res);
         
-        return "/reservationclient/detail.jsp";
+        return "/reservationclient/detail";
     }
 }

@@ -29,16 +29,16 @@ public class HotelController {
     @RequestMapping(value = "/supprimer/{idHotel}")
     public String supprimer( @PathVariable(value = "idHotel") long id){
         //Supprimer en DB
-        hs.delete(id);
+        hs.deleteById(id);
         //Redirection vers liste
         return "redirect:/hotel/lister";
     } 
     
     @RequestMapping(value = "/modifier/{id}", method = RequestMethod.GET)
     public String modifierGet(Model model,@PathVariable(value = "id") long hotelId) {
-        Hotel h = hs.findOne(hotelId);
+        Hotel h = hs.findById(hotelId);
         model.addAttribute("monHotel", h);
-        return "/hotel/modifier.jsp";
+        return "/hotel/modifier";
     }
     
     @RequestMapping(value = "/modifier", method = RequestMethod.POST)
@@ -51,7 +51,7 @@ public class HotelController {
     @RequestMapping(value ="/ajouter", method = RequestMethod.GET)
     public String ajouterGet(Model model) {
         model.addAttribute("nouvHotel", new Hotel());
-        return "/hotel/ajouter.jsp";
+        return "/hotel/ajouter";
     }
     
     @RequestMapping(value = "/ajouter", method = RequestMethod.POST)
@@ -67,6 +67,6 @@ public class HotelController {
 
         model.addAttribute("hotels", hs.findAll());
 
-        return "/hotel/lister.jsp";
+        return "/hotel/lister";
     }
 }

@@ -5,9 +5,9 @@
  */
 package reservation.spring;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -17,19 +17,17 @@ import org.springframework.web.servlet.DispatcherServlet;
  *
  * @author tom
  */
+
 public class SpringConfigWebApplicationInitializer implements WebApplicationInitializer {
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-
-        // Initialise spring au démarrage de l'application web.
-        AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
-        appContext.register(SpringConfig.class);
-        servletContext.addListener(new ContextLoaderListener(appContext));
-        
-        // Register and map the dispatcher servlet
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(appContext));
-        dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("/");
+        AnnotationConfigWebApplicationContext annotationConfigWebApplicationContext = new AnnotationConfigWebApplicationContext();
+        annotationConfigWebApplicationContext.register(SpringConfig.class);
+        servletContext.addListener(new ContextLoaderListener(annotationConfigWebApplicationContext));
+        annotationConfigWebApplicationContext.setServletContext(servletContext);        
+        ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(annotationConfigWebApplicationContext));
+        servlet.setLoadOnStartup(1);
+        servlet.addMapping("/");
     }
 }

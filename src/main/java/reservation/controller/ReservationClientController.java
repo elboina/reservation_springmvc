@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import reservation.entity.Client;
 import reservation.entity.Reservation;
 import reservation.entity.Utilisateur;
-import reservation.service.ChambreService;
-import reservation.service.ClientService;
 import reservation.service.ReservationService;
-import reservation.service.ReservationServiceLogMetier;
 
 /**
  *
@@ -28,16 +25,7 @@ import reservation.service.ReservationServiceLogMetier;
 public class ReservationClientController {
 
     @Autowired
-    private ReservationServiceLogMetier reservmet;
-
-    @Autowired
     private ReservationService serviceReservation;
-
-    @Autowired
-    private ChambreService serviceChambre;
-
-    @Autowired
-    private ClientService serviceClient;
 
     @RequestMapping(value = "/mesreservations")
     public String mesReservations(Model model, HttpSession session) {
@@ -48,20 +36,20 @@ public class ReservationClientController {
         model.addAttribute("reservationsPayees", serviceReservation.findByClientIdAndEtatReservation(cliId, Reservation.EtatReservation.PAYE));
         model.addAttribute("reservationsAnnulees", serviceReservation.findByClientIdAndEtatReservation(cliId, Reservation.EtatReservation.ANNULE));
 
-        return "/reservationclient/mesreservations.jsp";
+        return "/reservationclient/mesreservations";
     }
 
     @RequestMapping("/detailreservation/{id}")
     public String detailReservationGET(@PathVariable("id") long idReservation, Model model) {
-        Reservation res = serviceReservation.findOne(idReservation);
+        Reservation res = serviceReservation.findById(idReservation);
         model.addAttribute("reservation", res);
 
-        return "/reservationclient/detail.jsp";
+        return "/reservationclient/detail";
     }
 
     @RequestMapping("/detailreservation/paye/{id}")
     public String respayeesGET(@PathVariable("id") long id) {
-        Reservation respayee =serviceReservation.findOne(id);
+        Reservation respayee =serviceReservation.findById(id);
         respayee.setEtatReservation(Reservation.EtatReservation.PAYE);
         serviceReservation.save(respayee);
         return "redirect:/mesreservations";
@@ -69,7 +57,7 @@ public class ReservationClientController {
     
     @RequestMapping("/detailreservation/annulees/{id}")
     public String reannuleesGET(@PathVariable("id") long id) {
-        Reservation resannulee =serviceReservation.findOne(id);
+        Reservation resannulee =serviceReservation.findById(id);
         resannulee.setEtatReservation(Reservation.EtatReservation.ANNULE);
         serviceReservation.save(resannulee);
         return "redirect:/mesreservations";

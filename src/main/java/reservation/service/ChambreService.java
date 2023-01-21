@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import reservation.entity.Chambre;
 
 /**
  *
  * @author formation
  */
+@Repository
 public interface ChambreService extends CrudRepository<Chambre, Long> {
     public ArrayList<Chambre> findAllByHotelAdresseLocaliteAndNbPersonnesGreaterThan(String localite, int nbPersonnes);
     
@@ -32,5 +34,8 @@ public interface ChambreService extends CrudRepository<Chambre, Long> {
             + " AND r.dateCheckIn <= ?4"
             )
     public ArrayList<Chambre> rechercherChambresParVilleCapaciteDates(String localite, int nbPersonnes, Date dateArrivee, Date dateSortie);
+    
+    @Query("SELECT c FROM Chambre c WHERE c.id = ?1")
+    Chambre rechercherParId(Long id);
     
 }

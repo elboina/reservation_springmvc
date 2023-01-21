@@ -20,16 +20,16 @@ public class TestController {
     @RequestMapping(value="/hello/{numSerie}")
     public String helloter2(@PathVariable("numSerie")long ns) {
         System.out.println("***" + ns);
-        return "nada.jsp";
+        return "nada";
     }
     
     @RequestMapping(value = "/coucou/{a}/{b}")
     public String coucou(@PathVariable("b") int monB, @PathVariable("a") String monA) {
         System.out.println("**** " + monA + " " + monB);
-        return "nono.jsp";
+        return "nono";
     }
     @RequestMapping(value = "/hello")
     public String helloter() {
-        return "existepoint.jsp";
+        return "existepoint";
     }
 }

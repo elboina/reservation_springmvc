@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import reservation.entity.Chambre;
-import reservation.entity.Hotel;
 import reservation.service.ChambreService;
 import reservation.service.HotelService;
 
@@ -34,14 +33,14 @@ public class ChambreController {
     public String lister(Model model) {
         List<Chambre> chambres = (List<Chambre>)chs.findAll();
         model.addAttribute("listeChambres", chambres);
-        return "/chambre/lister.jsp";
+        return "/chambre/lister";
     }
     
     @RequestMapping(value = "/chambre/modifier/{id}", method = RequestMethod.GET)
     public String modifierGet(Model model, @PathVariable("id") long idChambre) {
-        model.addAttribute("maChambre", chs.findOne(idChambre));
+        model.addAttribute("maChambre", chs.rechercherParId(idChambre));
         model.addAttribute("hotels", hs.findAll());
-        return "/chambre/modifier.jsp";
+        return "/chambre/modifier";
     }
     
     @RequestMapping(value ="/chambre/modifier", method=RequestMethod.POST)
@@ -56,7 +55,7 @@ public class ChambreController {
     public String ajouterGet(Model model) {
         model.addAttribute("chambre", new Chambre());
         model.addAttribute("hotels", hs.findAll());
-        return "/chambre/ajouter.jsp";
+        return "/chambre/ajouter";
     }
     
     @RequestMapping(value ="/chambre/ajouter", method = RequestMethod.POST)
@@ -67,7 +66,7 @@ public class ChambreController {
     
     @RequestMapping(value = "/chambre/supprimer/{id}", method = RequestMethod.GET)
     public String supprimer(@PathVariable("id") long idChambre) {
-        chs.delete(idChambre);
+        chs.deleteById(idChambre);
         return "redirect:/chambre/lister";
     }
 }
